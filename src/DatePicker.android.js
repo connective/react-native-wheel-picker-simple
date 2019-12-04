@@ -106,7 +106,7 @@ export default class DatePicker extends React.Component<Props, State> {
           {...this.props}
           data={days || pickerDateArray(startDate, daysCount)}
           onItemSelected={this.onDaySelected}
-          initPosition={initDayInex}
+          selectedItem={initDayInex}
         />}
         {!hideHours && <WheelPicker
           style={styles.wheelPicker}
@@ -114,7 +114,7 @@ export default class DatePicker extends React.Component<Props, State> {
           isCyclic
           data={hours || getHoursArray(format24)}
           onItemSelected={this.onHourSelected}
-          initPosition={initHourInex}
+          selectedItem={initHourInex}
         />}
         {!hideMinutes && <WheelPicker
           style={styles.wheelPicker}
@@ -122,7 +122,7 @@ export default class DatePicker extends React.Component<Props, State> {
           isCyclic
           data={minutes || getFiveMinutesArray()}
           onItemSelected={this.onMinuteSelected}
-          initPosition={initMinuteInex}
+          selectedItem={initMinuteInex}
         />}
         {!this.props.format24 && !hideAM && this.renderAm()}
       </View>
@@ -137,7 +137,7 @@ export default class DatePicker extends React.Component<Props, State> {
         {...this.props}
         data={getAmArray()}
         onItemSelected={this.onAmSelected}
-        initPosition={initAmInex}
+        selectedItem={initAmInex}
       />
     )
   }
