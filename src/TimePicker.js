@@ -47,12 +47,10 @@ export default class TimePicker extends React.Component<Props, State> {
     const time12format = hourTo12Format(selectedDate.getHours())
     const time24format = selectedDate.getHours()
     const hours = this.props.hours || getHoursArray(format24)
-    const selectedHourIndex = format24 ? time24format : Number(time12format[0]) - 1
+    const selectedHourIndex = format24 ? hours.findIndex(el => parseInt(el) === time24format) : Number(time12format[0]) - 1
     const minutesCount = minutes ? minutes.length : 12
 
-    const selectedMinuteIndex = Math.round(
-      selectedDate.getMinutes() / (HOUR / minutesCount)
-    )
+    const selectedMinuteIndex = minutes.findIndex(el => parseInt(el) === selectedDate.getMinutes())
     const selectedAmIndex = time12format[1] === AM ? 0 : 1
     this.state = {
       selectedDate,
@@ -70,7 +68,6 @@ export default class TimePicker extends React.Component<Props, State> {
     return (
       <View style={[styles.container, { backgroundColor: this.props.backgroundColor }]}>
         <WheelPicker
-          isCyclic
           style={styles.wheelPicker}
           {...this.props}
           data={hours}
@@ -79,7 +76,6 @@ export default class TimePicker extends React.Component<Props, State> {
         />
         <WheelPicker
           style={styles.wheelPicker}
-          isCyclic
           {...this.props}
           data={minutes}
           onItemSelected={this.onMinuteSelected}
@@ -155,4 +151,3 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 })
-
