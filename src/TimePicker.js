@@ -42,11 +42,14 @@ type State = {
 export default class TimePicker extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props)
+
+    this.state = {}
   }
 
   static getDerivedStateFromProps (props, state) {
     const { initDate, format24, minutes } = props
-    const selectedDate = initDate ? new Date(initDate) : new Date()
+
+    const selectedDate = state.selectedDate ? state.selectedDate : (initDate ? new Date(initDate) : new Date())
     const time12format = hourTo12Format(selectedDate.getHours())
     const time24format = selectedDate.getHours()
     const hours = props.hours || getHoursArray(format24)
@@ -54,6 +57,7 @@ export default class TimePicker extends React.Component<Props, State> {
     const minutesCount = minutes ? minutes.length : 12
 
     const selectedMinuteIndex = minutes.findIndex(el => parseInt(el) === selectedDate.getMinutes())
+
     const selectedAmIndex = time12format[1] === AM ? 0 : 1
     return {
       ...state,
